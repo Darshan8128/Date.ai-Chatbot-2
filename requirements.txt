@@ -1,0 +1,12 @@
+streamlit
+python-dotenv
+langchain
+langchain-openai
+langchain-community
+faiss-cpu
+openai
+gtts
+pymupdf
+deep-translator
+SpeechRecognition
+PyAudio
