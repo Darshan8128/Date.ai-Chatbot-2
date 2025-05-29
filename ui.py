@@ -59,7 +59,7 @@ def setup_ui(reset_chat,remove_file,extract_text_from_file):
                             remove_file(i)
                             
                 # reset chat button
-                if st.button("Resett chat",key="reset_chat"):
+                if st.button("Reset chat",key="reset_chat"):
                     reset_chat()
 
 # avatar images
@@ -68,4 +68,75 @@ def get_avatar_html(avatar_type):
         avatar_url = "https://api.dicebear.com/7.x/personas/svg?seed=user"
     else:
         avatar_url = "https://api.dicebear.com/7.x/bottts/svg?seed=techease" 
-                        
+        
+    return f'<img src="{avatar_url}" alt="{avatar_type} avatar">'
+
+# Display chat messages with selectable text
+def display_chat_messages():
+    for message in st.session_state.chat_history:
+        if message["role"] == "user":
+            col1,col2 = st.columns([1,9])
+            with col1:
+                st.markdown(f'<div class="avatar">{get_avatar_html("user")}</div', unsafe_allow_html=True)
+            with col2:
+                st.markdown(f'<div class="chat-message user"><div class="message">{message["content"]}</div></div>', unsafe_allow_html=True)
+        else:
+            col1,col2 = st.columns([1,9])
+            with col1:
+                st.markdown(f'<div class="avatar">{get_avatar_html("bot")}</div>', unsafe_allow_html=True)
+            with col2:
+                # Make sure the text is properly escaped but still selectable
+                st.markdown(f'<div class="chat-message bot"><div class="message">{message["content"]}</div></div>', unsafe_allow_html=True)
+                
+                # Add audio player if available
+                if "audio" in message and message["audio"]:
+                    st.audio(message["audio"])
+                    
+                    
+# Apply custom CSS
+def apply_custom_css():
+    st.markdown("""
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .chat-message {
+                padding: 15px;
+                border-radius: 12px;
+                margin-bottom: 15px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                font-size: 16px;
+                line-height: 1.6;
+            }
+
+            .user {
+                background-color: #d0f0fd;
+                text-align: right;
+                color: #00334e;
+            }
+
+            .bot {
+                background-color: #f9e4ec;
+                text-align: left;
+                color: #4a0033;
+            }
+
+            .avatar {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 42px;
+                height: 42px;
+                border-radius: 50%;
+                overflow: hidden;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            }
+
+            .avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        </style>
+    """, unsafe_allow_html=True)
