@@ -15,7 +15,7 @@ def setup_ui(reset_chat,remove_file,extract_text_from_file):
     # sidebar elements
     with st.sidebar:
         st.title("Date AI Chatbot")
-        st.markkdown("---")
+        st.markdown("---")
         
         # language selection
         languages = {

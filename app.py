@@ -1,7 +1,7 @@
 import streamlit as st
 import os
 from dotenv import load_dotenv
-from ui import setup_ui,display_chat_messages, display_chat_interface
+from ui import setup_ui,display_chat_messages
 from utils import (
     load_vectorstore,
     get_ai_response,
@@ -87,7 +87,9 @@ def main():
     )
 
     # Display the Euron logo
-    st.image("C:\Users\tejas\Downloads\DATEAI(1).jpg", width=200)
+    # st.image(r"C:\Users\tejas\Downloads\DATEAI(1).jpg", width=200)
+    st.image(r"C:\Users\tejas\Downloads\DATEAI(1).jpg", width=200)
+
 
     st.title("Date AI Chatbot")
     st.markdown("Ask questions about organization's products, services, or policies")
